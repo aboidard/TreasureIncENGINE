@@ -1,0 +1,25 @@
+{
+  "name": "treasure-inc-engine",
+  "version": "0.0.1",
+  "description": "",
+  "main": "engine.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aboidard/TreasureIncENGINE.git"
+  },
+  "author": "Boidard Arnaud",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/aboidard/TreasureIncENGINE/issues"
+  },
+  "homepage": "https://github.com/aboidard/TreasureIncENGINE#readme",
+  "dependencies": {
+    "kafkajs": "^2.2.2",
+    "pg": "^8.8.0",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.23.2"
+  }
+}

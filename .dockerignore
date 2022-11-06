@@ -1,0 +1,8 @@
+Dockerfile
+.dockerignore
+node_modules
+.git
+.gitignore
+ENGINE.code-workspace
+README.md
+.env
