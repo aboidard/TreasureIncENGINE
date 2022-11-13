@@ -7,7 +7,7 @@ const sequelize = new Sequelize(process.env.PGDATABASE, process.env.PGUSER, proc
 });
 
 const modelDefiners = [
-    require('./models/users.model')
+    require('../../models/users.model')
 ];
 
 // We define all models according to their files.
