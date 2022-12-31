@@ -1,6 +1,5 @@
 // import the `Kafka` instance from the kafkajs library
 const { Kafka } = require("kafkajs")
-const { healthcheck } = require("../controler/common/healthcheck")
 
 const topic = "message-log"
 const topicResponse = "message-log-res"
@@ -9,7 +8,7 @@ const clientIdApi = "treasure-inc-api"
 const clientIdEngine = "treasure-inc-Engine"
 
 const brokers = ["localhost:9093"]
-
+let callbacks = null;
 
 const kafkaConsumer = new Kafka({ clientId: clientIdApi, brokers })
 const kafkaProducer = new Kafka({ clientId: clientIdEngine, brokers })
@@ -17,15 +16,17 @@ const kafkaProducer = new Kafka({ clientId: clientIdEngine, brokers })
 const consumer = kafkaConsumer.consumer({ groupId: clientIdApi })
 const producer = kafkaProducer.producer({})
 
-const consume = async () => {
+const consume = async (cbacks) => {
+    callbacks = cbacks
     await consumer.connect()
     await consumer.subscribe({ topic })
     await consumer.run({
-        eachMessage: ({ message }) => {
+        eachMessage: async ({ message }) => {
             try {
-                const result = JSON.parse(message.value)
-                console.log(`received message: ${result.replyId}, ${result.payload}`)
-                produce(result.replyId, `${result.payload} ? never gonna give you up ${result.replyId}...`)
+                const request = JSON.parse(message.value)
+                console.log(`received message: ${request.replyId}, ${request.payload}`)
+                let result = await callbacks[request.payload]()
+                produce(request.replyId, result)
             } catch (err) {
                 console.error(`could not read message ${err}`)
             }

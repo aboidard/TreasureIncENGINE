@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/aboidard/TreasureIncENGINE#readme",
   "dependencies": {
+    "dotenv": "^16.0.3",
     "kafkajs": "^2.2.2",
     "pg": "^8.8.0",
     "pg-hstore": "^2.3.4",
