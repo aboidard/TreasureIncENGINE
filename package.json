@@ -4,7 +4,8 @@
   "description": "",
   "main": "engine.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "dev": "nodemon --es-module-specifier-resolution=node engine.js"
   },
   "repository": {
     "type": "git",
