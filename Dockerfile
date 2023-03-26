@@ -5,10 +5,12 @@ ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
 ENV PATH=$PATH:/home/node/.npm-global/bin
 
 WORKDIR /app
-COPY --chown=node:node . ./
+COPY package*.json ./
 
 RUN yarn install --frozen-lockfile --production
 
+COPY --chown=node:node . ./
 USER node
+
 
 CMD [ "node", "engine.js" ]
