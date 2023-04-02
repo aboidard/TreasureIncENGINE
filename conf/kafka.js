@@ -25,7 +25,7 @@ const consume = async (cbacks) => {
             try {
                 const request = JSON.parse(message.value)
                 console.log(`received message: ${request.replyId}, ${request.payload}`)
-                let result = await callbacks[request.payload]()
+                let result = await callbacks[request.payload.type](request.payload.params)
                 produce(request.replyId, result)
             } catch (err) {
                 console.error(`could not read message ${err}`)
@@ -35,7 +35,7 @@ const consume = async (cbacks) => {
 }
 
 
-const produce = async (replyId, message) => {
+const produce = async (replyId, payload) => {
     await producer.connect()
 
     try {
@@ -43,7 +43,7 @@ const produce = async (replyId, message) => {
             topic: topicResponse,
             messages: [
                 {
-                    value: JSON.stringify({ replyId: replyId, payload: message })
+                    value: JSON.stringify({ replyId: replyId, payload: payload })
                 },
             ],
         })

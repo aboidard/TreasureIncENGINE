@@ -1,4 +1,4 @@
-const { Rarity } = require('../services/items/rarity')
+const { Rarity } = require('../services/item/rarity')
 const { getRandomInt } = require('./random')
 
 
