@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 
 module.exports = (sequelize) => {
-    sequelize.define('user', {
+    sequelize.define('users', {
         id: {
             allowNull: false,
             autoIncrement: true,
@@ -23,11 +23,6 @@ module.exports = (sequelize) => {
             validate: {
                 is: /\w{30}/
             }
-        },
-        created: {
-            allowNull: false,
-            type: DataTypes.DATE,
-            unique: false
         },
         money: {
             allowNull: false,
