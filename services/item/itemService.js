@@ -1,20 +1,20 @@
-const { getRandomInt } = require('../../tools/random')
-const { generateItemName, generateItemDescription } = require('../../tools/stringGenerator')
-const { Rarity, rarityPriceCoef } = require('./rarity')
+import { getRandomInt } from '../../tools/random';
+import { generateItemName, generateItemDescription } from '../../tools/stringGenerator';
+import { Rarity, rarityPriceCoef } from './rarity';
 
-const generateManyRandomItems = function (nb) {
-    let list = []
+export const generateManyRandomItems = function (nb: number) {
+    let list: any[] = [];
     for (let i = 0; i < nb; i++) {
         list.push(generateRandomItem());
     }
     return list;
 }
 
-const pickOneRandomSprite = function () {
+export const pickOneRandomSprite = function () {
     return getRandomInt(180);
 }
 
-const generateRandomItem = function () {
+export const generateRandomItem = function () {
     let proba = getRandomInt(1000) + 1;
     let rarity = Rarity.Common;
     switch (true) {
@@ -37,42 +37,13 @@ const generateRandomItem = function () {
     return generateRandomRarityItem(rarity);
 }
 
-const generateRandomRarityItem = function (rarity) {
-    let item = {}
-    item.name = generateItemName(rarity)
-    item.price = getRandomInt(1000) + 1000 * rarityPriceCoef[rarity.toString()]
-    item.rarity = rarity.toString()
-    item.description = generateItemDescription()
-    item.graphics = pickOneRandomSprite()
+export const generateRandomRarityItem = function (rarity: Rarity) {
+    let item: any = {};
+    item.name = generateItemName(rarity);
+    item.price = getRandomInt(1000) + 1000 * rarityPriceCoef[rarity.toString()];
+    item.rarity = rarity.toString();
+    item.description = generateItemDescription();
+    item.graphics = pickOneRandomSprite();
 
     return item;
 }
-
-module.exports = { generateManyRandomItems, pickOneRandomSprite }
-
-//console.log(generateRandomItem().toString())
-// let map = {}
-// for (const r of generateRandomItems(10000)) {
-//     if (map[r.toString()] === undefined)
-//         map[r.toString()] = 1
-//     else
-//         map[r.toString()] = map[r.toString()] + 1
-// }
-// console.log(map)
-
-// const getRarityPriceCoef = function (rarity) {
-//     switch (rarity) {
-//         case (Rarity.Common):
-//             return 0
-//         case (Rarity.Uncommon):
-//             return 1
-//         case (Rarity.Rare):
-//             return 5
-//         case (Rarity.Epic):
-//             return 20
-//         case (Rarity.Legendary):
-//             return 100
-//     }
-// }
-
-
