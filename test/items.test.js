@@ -1,6 +1,6 @@
 
-const { Rarity } = require('../services/items/rarity')
-const { generateManyRandomItems } = require('../services/items/items');
+const { Rarity } = require('../services/item/rarity')
+const { generateManyRandomItems, pickOneRandomSprite } = require('../services/item/itemService');
 const { generateExpeditionName, generateItemDescription, generateItemName } = require('../tools/stringGenerator')
 
 beforeEach(() => {
@@ -19,6 +19,15 @@ describe('test rarity', () => {
         expect(mysrarity).toEqual(Rarity.Epic)
         expect(mysrarity).not.toEqual("Epic")
         expect(mysrarity.toString()).toEqual('Epic')
+    })
+})
+
+describe('test graphics', () => {
+    test('graphics', () => {
+        const graphics = pickOneRandomSprite()
+        expect(graphics).not.toBeUndefined()
+        expect(graphics).toBeGreaterThanOrEqual(0)
+        expect(graphics).toBeLessThanOrEqual(180)
     })
 })
 
@@ -45,8 +54,7 @@ describe('test StringGenerator', () => {
 
 describe('test items', () => {
     test('items ', () => {
-        //console.log(generateManyRandomItems(1))
-        expect(generateManyRandomItems(1)).toEqual([{ "description": "Sa place est dans un musée !", "graphics": 12, "name": "breloque inintéressante", "price": 123, "rarity": "Common" }])
+        expect(generateManyRandomItems(1)).toEqual([{ "description": "Sa place est dans un musée !", "graphics": 22, "name": "breloque inintéressante", "price": 123, "rarity": "Common" }])
     })
 })
 

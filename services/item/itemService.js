@@ -10,11 +10,9 @@ const generateManyRandomItems = function (nb) {
     return list;
 }
 
-// const equals = function(otherItem)
-// {
-//     if (otherItem === undefined) return false;
-//     return (this.id.Equals(other.id));
-// }
+const pickOneRandomSprite = function () {
+    return getRandomInt(180);
+}
 
 const generateRandomItem = function () {
     let proba = getRandomInt(1000) + 1;
@@ -45,12 +43,12 @@ const generateRandomRarityItem = function (rarity) {
     item.price = getRandomInt(1000) + 1000 * rarityPriceCoef[rarity.toString()]
     item.rarity = rarity.toString()
     item.description = generateItemDescription()
-    item.graphics = 12
+    item.graphics = pickOneRandomSprite()
 
     return item;
 }
 
-module.exports = { generateManyRandomItems }
+module.exports = { generateManyRandomItems, pickOneRandomSprite }
 
 //console.log(generateRandomItem().toString())
 // let map = {}
