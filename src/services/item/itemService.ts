@@ -1,6 +1,6 @@
-import { getRandomInt } from '../../tools/random';
+import getRandomInt from '../../tools/random';
 import { generateItemName, generateItemDescription } from '../../tools/stringGenerator';
-import { Rarity, rarityPriceCoef } from './rarity';
+import { Rarity } from './rarity';
 
 export const generateManyRandomItems = function (nb: number) {
     let list: any[] = [];
@@ -16,31 +16,31 @@ export const pickOneRandomSprite = function () {
 
 export const generateRandomItem = function () {
     let proba = getRandomInt(1000) + 1;
-    let rarity = Rarity.Common;
+    let rarity = typeof Rarity;
     switch (true) {
         case (proba <= 650):
-            rarity = Rarity.Common;
+            rarity = typeof Rarity.Common;
             break;
         case (proba <= 850):
-            rarity = Rarity.Uncommon;
+            rarity = typeof Rarity.Uncommon;
             break;
         case (proba <= 990):
-            rarity = Rarity.Rare;
+            rarity = typeof Rarity.Rare;
             break;
         case (proba <= 999):
-            rarity = Rarity.Epic;
+            rarity = typeof Rarity.Epic;
             break;
         case (proba == 1000):
-            rarity = Rarity.Legendary;
+            rarity = typeof Rarity.Legendary;
             break;
     }
     return generateRandomRarityItem(rarity);
 }
 
-export const generateRandomRarityItem = function (rarity: Rarity) {
+export const generateRandomRarityItem = function (rarity: string) {
     let item: any = {};
     item.name = generateItemName(rarity);
-    item.price = getRandomInt(1000) + 1000 * rarityPriceCoef[rarity.toString()];
+    item.price = getRandomInt(1000) + 1000 * Rarity.getRarityPriceCoef(rarity);
     item.rarity = rarity.toString();
     item.description = generateItemDescription();
     item.graphics = pickOneRandomSprite();

@@ -7,8 +7,8 @@ const topicResponse = "message-log-res"
 const clientIdApi = "treasure-inc-api"
 const clientIdEngine = "treasure-inc-Engine"
 
-const brokers = process.env.BROKERS.split(',')
-let callbacks = null;
+const brokers = process.env.BROKERS?.split(',')
+type callbacks = null;
 
 const kafkaConsumer = new Kafka({ clientId: clientIdApi, brokers })
 const kafkaProducer = new Kafka({ clientId: clientIdEngine, brokers })
@@ -16,8 +16,7 @@ const kafkaProducer = new Kafka({ clientId: clientIdEngine, brokers })
 const consumer = kafkaConsumer.consumer({ groupId: clientIdApi })
 const producer = kafkaProducer.producer({})
 
-const consume = async (cbacks) => {
-    callbacks = cbacks
+export const consume = async (callbacks) => {
     await consumer.connect()
     await consumer.subscribe({ topic })
     await consumer.run({
@@ -35,7 +34,7 @@ const consume = async (cbacks) => {
 }
 
 
-const produce = async (replyId, payload) => {
+export const produce = async (replyId: string, payload: any) => {
     await producer.connect()
 
     try {
@@ -52,4 +51,3 @@ const produce = async (replyId, payload) => {
         console.error(`could not write message : ${err}`)
     }
 }
-module.exports = consume
