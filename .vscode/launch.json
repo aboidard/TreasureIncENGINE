@@ -11,7 +11,8 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}\\engine.js",
+            "program": "${workspaceFolder}\\src\\engine.ts",
+            "preLaunchTask": "tsc: build - tsconfig.json",
             "runtimeArgs": [
                 "--es-module-specifier-resolution=node"
             ]

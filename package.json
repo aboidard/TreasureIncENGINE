@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --es-module-specifier-resolution=node",
     "build": "rimraf ./dist && tsc",
+    "build-prod": "tsc",
     "clean": "rimraf ./dist",
     "dev": "nodemon src/engine.ts"
   },

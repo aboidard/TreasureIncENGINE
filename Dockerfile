@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16-alpine as builder
 
 # Global npm dependencies
 ENV NPM_CONFIG_PREFIX=/home/node/.npm-global
@@ -7,10 +7,22 @@ ENV PATH=$PATH:/home/node/.npm-global/bin
 WORKDIR /app
 COPY package*.json ./
 
-RUN yarn install --frozen-lockfile --production
+RUN yarn install
 
-COPY --chown=node:node . ./
+COPY . .
+
+RUN yarn build-prod
+
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY package.json yarn.lock ./
+
+RUN yarn install --frozen-lockfile --production 
+
+COPY --from=builder --chown=node:node /app/dist .
+
 USER node
 
-
-CMD [ "node", "engine.js" ]
+CMD [ "node", "./engine.js" ]
