@@ -2,7 +2,7 @@
   "name": "treasure-inc-engine",
   "version": "0.0.1",
   "description": "",
-  "main": "engine.js",
+  "main": "engine.ts",
   "scripts": {
     "test": "jest --es-module-specifier-resolution=node",
     "dev": "nodemon --es-module-specifier-resolution=node engine.js"
