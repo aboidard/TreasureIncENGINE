@@ -1,7 +1,6 @@
 
 import { Item } from "../../models/Item";
 import { User } from "../../models/User";
-import { sequelize } from "../../conf/sequelize";
 import * as ItemService from "../../services/item/itemService";
 
 export const generateItemsForUser = async (user: string, nb: number) => {
@@ -17,9 +16,9 @@ export const generateItemsForUser = async (user: string, nb: number) => {
 
         let listItems: Array<Item> = ItemService.generateManyRandomItems(nb);
         listItems.forEach((item: Item) => {
-            item.user = userDB;
+            item.user_id = userDB.id;
+            item.save();
         })
-        await sequelize.models.items.bulkCreate(listItems);
 
         return { status: 201, message: "OK", payload: { items: listItems } };
     } catch (error: any) {

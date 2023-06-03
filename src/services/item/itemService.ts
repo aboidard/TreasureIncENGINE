@@ -1,9 +1,10 @@
-import getRandomInt from '../../tools/random';
+import { Item } from '../../models/Item';
+import { getRandomInt } from '../../tools/random';
 import { generateItemName, generateItemDescription } from '../../tools/stringGenerator';
 import { Rarity } from './rarity';
 
 export const generateManyRandomItems = function (nb: number) {
-    let list: any[] = [];
+    let list: Item[] = [];
     for (let i = 0; i < nb; i++) {
         list.push(generateRandomItem());
     }
@@ -16,34 +17,33 @@ export const pickOneRandomSprite = function () {
 
 export const generateRandomItem = function () {
     let proba = getRandomInt(1000) + 1;
-    let rarity = typeof Rarity;
+    let rarity: string = Rarity.Common;
     switch (true) {
         case (proba <= 650):
-            rarity = typeof Rarity.Common;
+            rarity = Rarity.Common;
             break;
         case (proba <= 850):
-            rarity = typeof Rarity.Uncommon;
+            rarity = Rarity.Uncommon;
             break;
         case (proba <= 990):
-            rarity = typeof Rarity.Rare;
+            rarity = Rarity.Rare;
             break;
         case (proba <= 999):
-            rarity = typeof Rarity.Epic;
+            rarity = Rarity.Epic;
             break;
         case (proba == 1000):
-            rarity = typeof Rarity.Legendary;
+            rarity = Rarity.Legendary;
             break;
     }
     return generateRandomRarityItem(rarity);
 }
 
 export const generateRandomRarityItem = function (rarity: string) {
-    let item: any = {};
-    item.name = generateItemName(rarity);
-    item.price = getRandomInt(1000) + 1000 * Rarity.getRarityPriceCoef(rarity);
-    item.rarity = rarity.toString();
-    item.description = generateItemDescription();
-    item.graphics = pickOneRandomSprite();
-
-    return item;
+    return new Item({
+        name: generateItemName(rarity),
+        price: getRandomInt(1000) + 1000 * Rarity.getRarityPriceCoef(rarity),
+        rarity: rarity.toString(),
+        description: generateItemDescription(),
+        graphics: pickOneRandomSprite()
+    });
 }

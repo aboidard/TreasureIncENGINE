@@ -6,12 +6,12 @@ const { healthcheck } = require("./controlers/common/healthcheck")
 const { generateItemsForUser } = require("./controlers/items/itemsControler")
 
 import { consume } from "./conf/kafka"
-import { sequelize } from "./conf/sequelize"
+import { sequelizeConnection } from "./conf/sequelize"
 
 const callbacks = Object.create(null);
 
 try {
-    sequelize.authenticate();
+    sequelizeConnection.authenticate();
     console.log('Connection has been established successfully.');
 } catch (error) {
     console.error('Unable to connect to the database:', error);

@@ -139,7 +139,7 @@ const descriptionItem = [
     "Incroyable, mais vrai !",
     "Bon sang mais c'est bien sûr !",
     "2,21 gigawatts !",
-    "Il y a une etiquette : 'Made in China'",
+    "Il y a une etiquette : 'Made in Mordak'",
     "Il y a une inscription : 'frottez moi'",
     "Il y a une inscription : 'mangez moi'",
     "Il y a une inscription : 'Lavage à la main uniquement'",
@@ -151,7 +151,7 @@ const descriptionItem = [
     "J'ai dépensé 1000 euros pour ça, c'est une arnaque !",
     "J'ai dépeché un de mes meilleurs hommes pour aller chercher ça !",
     "J'ai dépensé sans compter !",
-    "On en aprend pas plus sur le lore avec cette description, on est dans dans dark souls !",
+    "On en aprend pas plus sur le lore avec cette description, on est pas dans dans Dark Souls !",
     "Semble onereux, mais en réalité très bon marché.",
     "Il y a une inscription : 'ne pas mettre au congélateur'",
     "Il y a une inscription : 'ne pas mettre au réfrigérateur'",
@@ -171,6 +171,8 @@ const descriptionItem = [
     "Un objet de collection.",
     "Elle se hâte trop, Burrhus, de triompher : J'embrasse mon rival, mais c'est pour l'étouffer.",
     "Il faut cultiver son jardin.",
+    //inscription humouristique sur un objet
+
 ]
 
 export const generateExpeditionName = function () {

@@ -1,7 +1,7 @@
-import { Table, Column, Model, HasOne } from 'sequelize-typescript';
+import { Table, Column, Model, ForeignKey, PrimaryKey } from 'sequelize-typescript';
 import { User } from './User';
 
-@Table({ timestamps: true })
+@Table({ timestamps: true, tableName: "items" })
 export class Item extends Model {
     @Column
     description!: string;
@@ -18,6 +18,7 @@ export class Item extends Model {
     @Column
     name!: string;
 
-    @HasOne(() => User)
-    user!: User;
+    @ForeignKey(() => User)
+    @Column
+    user_id!: number;
 }

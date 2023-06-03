@@ -1,10 +1,10 @@
 
-import { sequelize } from "../../conf/sequelize/index";
+import { sequelizeConnection } from "../../conf/sequelize/index";
 
 export const healthcheck = async () => {
     console.log(`Checking database connection...`);
     try {
-        await sequelize.authenticate();
+        await sequelizeConnection.authenticate();
         console.log('Database connection OK!');
         return { status: 200, message: "OK" }
     } catch (error: any) {
