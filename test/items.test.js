@@ -1,7 +1,7 @@
 
-const { Rarity } = require('../services/item/rarity')
-const { generateManyRandomItems, pickOneRandomSprite } = require('../services/item/itemService');
-const { generateExpeditionName, generateItemDescription, generateItemName } = require('../tools/stringGenerator')
+const { Rarity } = require('../src/services/item/rarity')
+const { generateManyRandomItems, pickOneRandomSprite } = require('../src/services/item/itemService');
+const { generateExpeditionName, generateItemDescription, generateItemName } = require('../src/tools/stringGenerator')
 
 beforeEach(() => {
     jest.spyOn(global.Math, 'random').mockReturnValue(0.123456789);

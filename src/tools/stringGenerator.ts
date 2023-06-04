@@ -1,12 +1,10 @@
-const { Rarity } = require('../services/item/rarity')
+const Rarity = require('../services/item/rarity')
 const { getRandomInt } = require('./random')
 
 
 const FEMININ_GENDER = "F"
-//private static string MASCULIN_GENDER = "M";
-//private static string NEUTRAL_GENDER = "N";
 
-expedition = [
+const expedition = [
     "Expédition,F,l'",
     "Aventure,F,l'",
     "Baroud,M,le",
@@ -25,7 +23,7 @@ expedition = [
     "Évenement,M,l'"
 ]
 
-adjectifExpedition = [
+const adjectifExpedition = [
     "douloureux,douloureuse",
     "incroyable",
     "fructueux,fructueuse",
@@ -44,7 +42,7 @@ adjectifExpedition = [
     "généreux,généreuse"
 ]
 
-commonItem = [
+const commonItem = [
     "babiole,F,la",
     "breloque,F,la",
     "bibelot,M,le",
@@ -60,7 +58,7 @@ commonItem = [
     "décoration,F,la"
 ]
 
-rareItem = [
+const rareItem = [
     "bijou,M,le",
     "porte-bonheur,M,le",
     "bronze,M,le",
@@ -69,7 +67,7 @@ rareItem = [
     "chef-d'oeuvre,M,le"
 ]
 
-commonAdjectifItem = [
+const commonAdjectifItem = [
     "insignifiant,insignifiante",
     "inintéressant,inintéressante",
     "terne",
@@ -85,7 +83,7 @@ commonAdjectifItem = [
     "habituel,habituelle"
 ]
 
-uncommonAdjectifItem = [
+const uncommonAdjectifItem = [
     "original,originale",
     "étonnant,étonnante",
     "étrange",
@@ -97,7 +95,7 @@ uncommonAdjectifItem = [
     "insolite"
 ]
 
-rareAdjectifItem = [
+const rareAdjectifItem = [
     "intéressant,intéressante",
     "brillant,brillante",
     "admirable",
@@ -107,7 +105,7 @@ rareAdjectifItem = [
     "rare",
     "rarissime"
 ]
-epicAdjectifItem = [
+const epicAdjectifItem = [
     "incroyable",
     "étincelant,étincelante",
     "exceptionnel,exceptionnelle",
@@ -120,7 +118,7 @@ epicAdjectifItem = [
     "parfait,parfaite"
 ]
 
-legendaryAdjectifItem = [
+const legendaryAdjectifItem = [
     "légendaire",
     "fabuleux,fabuleuse",
     "mithique",
@@ -128,17 +126,56 @@ legendaryAdjectifItem = [
     "transcendant,transcendante"
 ]
 
-descriptionItem = [
+const descriptionItem = [
     "Sa place est dans un musée !",
     "Objet bien mais pas top, il aurait été inventé il y a longtemps avant JC.",
     "Mais qu'est ce que c'est que cette matière ? mais c'est... c'est...",
     "Un certain professeur Johanes l'a cherché toute sa vie.",
     "De fabrication artisanale, il a été réalisé grace à un mouvement manuel rotatif en s'aidant de la région axillaire.",
     "C'est une de mes plus belle pièce...",
-    "Mais commençons par le début, qu'est-ce qu'un pont suspendu ?"
+    "Mais commençons par le début, qu'est-ce qu'un pont suspendu ?", ,
+    "C'est un objet qui a été fabriqué par un artisan, et qui a été utilisé par un artisan.",
+    "Nulle part dans le monde on ne trouve de tel objet.",
+    "Incroyable, mais vrai !",
+    "Bon sang mais c'est bien sûr !",
+    "2,21 gigawatts !",
+    "Il y a une etiquette : 'Made in Mordak'",
+    "Il y a une inscription : 'frottez moi'",
+    "Il y a une inscription : 'mangez moi'",
+    "Il y a une inscription : 'Lavage à la main uniquement'",
+    "Il y a une inscription : 'ne pas mettre au micro-ondes'",
+    "Il y a une inscription : 'ne pas mettre au four'",
+    "Il y a une inscription : 'ne pas mettre au lave-vaisselle'",
+    "Il y a une inscription : 'lavage 40 degrés maximum'",
+    "J'ai trouvé ça dans un grenier, je ne sais pas ce que c'est...",
+    "J'ai dépensé 1000 euros pour ça, c'est une arnaque !",
+    "J'ai dépeché un de mes meilleurs hommes pour aller chercher ça !",
+    "J'ai dépensé sans compter !",
+    "On en aprend pas plus sur le lore avec cette description, on est pas dans dans Dark Souls !",
+    "Semble onereux, mais en réalité très bon marché.",
+    "Il y a une inscription : 'ne pas mettre au congélateur'",
+    "Il y a une inscription : 'ne pas mettre au réfrigérateur'",
+    "Ma grand-mère m'a donné ça, elle l'a trouvé dans un grenier.",
+    "Mon grand-père en utilisait pour faire des crêpes.",
+    "Utilisé par les plus grands chefs.",
+    "Utile dans certaines situations.",
+    "Parfaitement incassable regardez ! *crush* *crush* *crush*",
+    "D'une solidité à toute épreuve.",
+    "Incroyable, mais vrai !",
+    "Incroyablement léger.",
+    "Incroyablement lourd.",
+    "Il y une étiquette sur laquelle on trouve un lien vers un site de vente en ligne.",
+    "Avez-vous projeté de mettre du gameplay dans ce jeu ?",
+    "Je vais vous faire une offre que vous ne pourrez refuser.",
+    "Vous avez de la chance, c'est la dernière pièce de ce type.",
+    "Un objet de collection.",
+    "Elle se hâte trop, Burrhus, de triompher : J'embrasse mon rival, mais c'est pour l'étouffer.",
+    "Il faut cultiver son jardin.",
+    //inscription humouristique sur un objet
+
 ]
 
-const generateExpeditionName = function () {
+export const generateExpeditionName = function () {
     let result = ""
     let ex = expedition[getRandomInt(expedition.length)].split(',')
     result += ex[0] + " "
@@ -154,14 +191,14 @@ const generateExpeditionName = function () {
     return result
 }
 
-const generateItemDescription = function () {
+export const generateItemDescription = function () {
     return descriptionItem[getRandomInt(descriptionItem.length)];
 }
 
-const generateItemName = function (rarity) {
+export const generateItemName = function (rarity: string) {
     let result = ""
-    let adj = []
-    let item = []
+    let adj: Array<string> = []
+    let item: Array<string> = []
 
     switch (rarity) {
         case Rarity.Uncommon:
@@ -197,5 +234,3 @@ const generateItemName = function (rarity) {
 
     return result
 }
-
-module.exports = { generateItemDescription, generateItemName, generateExpeditionName }
