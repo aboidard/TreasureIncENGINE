@@ -7,8 +7,8 @@ const topicResponse = "message-log-res"
 const clientIdApi = "treasure-inc-api"
 const clientIdEngine = "treasure-inc-Engine"
 
-const brokers = process.env.BROKERS.split(',')
-let callbacks = null;
+const brokers = process.env.BROKERS?.split(',')
+type callbacks = null;
 
 const kafkaConsumer = new Kafka({ clientId: clientIdApi, brokers })
 const kafkaProducer = new Kafka({ clientId: clientIdEngine, brokers })
@@ -16,8 +16,7 @@ const kafkaProducer = new Kafka({ clientId: clientIdEngine, brokers })
 const consumer = kafkaConsumer.consumer({ groupId: clientIdApi })
 const producer = kafkaProducer.producer({})
 
-const consume = async (cbacks) => {
-    callbacks = cbacks
+export const consume = async (callbacks) => {
     await consumer.connect()
     await consumer.subscribe({ topic })
     await consumer.run({
@@ -25,7 +24,7 @@ const consume = async (cbacks) => {
             try {
                 const request = JSON.parse(message.value)
                 console.log(`received message: ${request.replyId}, ${request.payload}`)
-                let result = await callbacks[request.payload]()
+                let result = await callbacks[request.payload.type](request.payload.params)
                 produce(request.replyId, result)
             } catch (err) {
                 console.error(`could not read message ${err}`)
@@ -35,7 +34,7 @@ const consume = async (cbacks) => {
 }
 
 
-const produce = async (replyId, message) => {
+export const produce = async (replyId: string, payload: any) => {
     await producer.connect()
 
     try {
@@ -43,7 +42,7 @@ const produce = async (replyId, message) => {
             topic: topicResponse,
             messages: [
                 {
-                    value: JSON.stringify({ replyId: replyId, payload: message })
+                    value: JSON.stringify({ replyId: replyId, payload: payload })
                 },
             ],
         })
@@ -52,4 +51,3 @@ const produce = async (replyId, message) => {
         console.error(`could not write message : ${err}`)
     }
 }
-module.exports = consume
