@@ -1,18 +1,18 @@
 //@ ts-check
 require('dotenv').config()
-let env = process.env
+const env = process.env
 
 const { healthcheck } = require("./controlers/common/healthcheck")
 const { generateItemsForUser } = require("./controlers/items/itemsControler")
 
-import { consume } from "./conf/kafka"
+import { consume } from "./conf/redis"
 import { sequelizeConnection } from "./conf/sequelize"
 
 const callbacks = Object.create(null);
 
 try {
     sequelizeConnection.authenticate();
-    console.log('Connection has been established successfully.');
+    console.log('sequelize connection has been established successfully.');
 } catch (error) {
     console.error('Unable to connect to the database:', error);
 }
