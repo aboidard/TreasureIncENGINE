@@ -14,11 +14,7 @@ export const generateItemsForUser = async (user: string, nb: number) => {
             return { status: 404, message: "User not found" };
         }
 
-        let listItems: Array<Item> = ItemService.generateManyRandomItems(nb);
-        listItems.forEach((item: Item) => {
-            item.user_id = userDB.id;
-            item.save();
-        })
+        let listItems: Array<Item> = await ItemService.generateManyRandomItems(nb, userDB.id);
 
         return { status: 201, message: "OK", payload: { items: listItems } };
     } catch (error: any) {

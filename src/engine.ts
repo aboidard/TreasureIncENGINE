@@ -2,11 +2,11 @@
 require('dotenv').config()
 const env = process.env
 
+const { consume } = require("./conf/redis")
+const { sequelizeConnection } = require("./conf/sequelize")
 const { healthcheck } = require("./controlers/common/healthcheck")
 const { generateItemsForUser } = require("./controlers/items/itemsControler")
-
-import { consume } from "./conf/redis"
-import { sequelizeConnection } from "./conf/sequelize"
+const { login, createUser, getAllUsers } = require("./controlers/users/userControler")
 
 const callbacks = Object.create(null);
 
@@ -23,6 +23,18 @@ callbacks["healthcheck"] = async function (_: any) {
 
 callbacks["generateItemsForUser"] = async function (params: any) {
     return await generateItemsForUser(params.user, params.nb)
+}
+
+callbacks["login"] = async function (params: any) {
+    return await login(params.user, params.private_key)
+}
+
+callbacks["createUser"] = async function (_: any) {
+    return await createUser()
+}
+
+callbacks["getAllUsers"] = async function (_: any) {
+    return await getAllUsers()
 }
 
 // start the consumer, and log any errors
