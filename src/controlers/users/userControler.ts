@@ -30,7 +30,7 @@ export const createUser = async () => {
         const userDB = await User.create({
             public_key: publicKey,
             private_key: privateKey,
-            money: 1000000
+            money: 100000
         }, { isNewRecord: true });
         return { status: 201, message: "OK", payload: { user: userDB } };
     } catch (error: any) {
