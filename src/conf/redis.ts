@@ -11,6 +11,17 @@ const redisConf = {
 const consumer = new Redis(redisConf);
 const producer = new Redis(redisConf);
 
+const subscribe = function (topic){
+    console.log("Subscribing to channel :", topic);
+    consumer.subscribe(topic, (err, count) => {
+        if (err) {
+            console.error("Failed to subscribe: %s", err.message);
+        } else {
+            console.log(`Subscribed successfully! This client is currently subscribed to ${count} channels.`);
+        }
+    });
+}
+
 export const consume = async (callbacks) => {
     consumer.on('message', async (channel, message) => {
         try {
@@ -33,27 +44,13 @@ export const consume = async (callbacks) => {
 
     consumer.on("connect", function () {
         console.log("Redis connected");
+        subscribe(topic);
     });
 
     consumer.on("reconnecting", function () {
         console.log("Redis reconnecting");
     });
-
-    console.log("Subscribing to channel :", topic);
-
-    consumer.subscribe(topic, (err, count) => {
-        if (err) {
-            // Just like other commands, subscribe() can fail for some reasons,
-            // ex network issues.
-            console.error("Failed to subscribe: %s", err.message);
-        } else {
-            // `count` represents the number of channels this client are currently subscribed to.
-            console.log(
-                `Subscribed successfully! This client is currently subscribed to ${count} channels.`
-            );
-        }
-    });
-}
+};
 
 export const produce = async (replyId: string, payload: any) => {
     try {
