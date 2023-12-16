@@ -12,6 +12,9 @@ export const login = async (user: string, private_key: string) => {
             return { status: 404, message: "User not found" };
         }
 
+        userDB.lastLogin = new Date();
+        await userDB.save();
+
         //return all data execpt private_key
         userDB.private_key = "";
 
@@ -30,6 +33,7 @@ export const createUser = async () => {
         const userDB = await User.create({
             public_key: publicKey,
             private_key: privateKey,
+            lastLogin: new Date(),
             money: 100000
         }, { isNewRecord: true });
         return { status: 201, message: "OK", payload: { user: userDB } };

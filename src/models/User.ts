@@ -14,4 +14,7 @@ export class User extends Model {
 
     @HasMany(() => Item)
     items!: Item[];
+
+    @Column({ field: "lastlogin" })
+    lastLogin!: Date;
 }
