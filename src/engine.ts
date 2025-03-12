@@ -22,7 +22,7 @@ callbacks["healthcheck"] = async function (_: any) {
 }
 
 callbacks["generateItemsForUser"] = async function (params: any) {
-    return await generateItemsForUser(params.user, params.nb)
+    return await generateItemsForUser(params.user, params.nb, params.privateKey)
 }
 
 callbacks["login"] = async function (params: any) {

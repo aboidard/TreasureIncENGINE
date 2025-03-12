@@ -3,11 +3,11 @@ import { Item } from "../../models/Item";
 import { User } from "../../models/User";
 import * as ItemService from "../../services/item/itemService";
 
-export const generateItemsForUser = async (user: string, nb: number) => {
+export const generateItemsForUser = async (user: string, nb: number,  privateKey: string) => {
     console.log(`generate ${nb} items for ${user}`);
     try {
         const userDB = await User.findOne({
-            where: { public_key: [user] }
+            where: { public_key: [user], private_key: [privateKey]}
         });
 
         if (userDB === null) {
